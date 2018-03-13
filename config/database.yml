@@ -1,0 +1,18 @@
+default: &default
+  adapter: mysql2
+  host: db
+  username: user
+  password: password
+  pool: 5
+
+development:
+  <<: *default
+  database: dockerails
+
+test:
+  <<: *default
+  database: dockerails
+
+production:
+  <<: *default
+  database: dockerails

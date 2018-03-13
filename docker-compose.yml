@@ -1,0 +1,26 @@
+version: '3'
+services:
+  web:
+    build: .
+    entrypoint: bundle exec
+    command: rails server -p 3000
+    volumes:
+      - .:/dockerails
+    ports:
+      - "3000"
+    depends_on:
+      - db
+      - apache
+  db:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: epic_password
+      MYSQL_DATABASE: dockerails
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+  apache:
+    image: httpd:alpine
+    volumes:
+      - ./docker/dockerails.conf:/usr/local/apache2/conf/httpd.conf
+    ports:
+      - "80:80"
